@@ -16,6 +16,8 @@ def read_file(path, features_type, chunk_size, sep_):
 
 
 def split_tsv(chunk,features_type):
+    
+    '''Return [splited to np.array tsv file[job_id,feature_i,], rows amount in chunk]'''
 
     if features_type == '2':
 
@@ -41,6 +43,8 @@ def split_tsv(chunk,features_type):
 
 
 def process_train_data(train_data,feature_type):
+    
+    '''Evaluate mean,var,std param's for all train data'''
 
     chunk_size = []
     columns_summary = []
@@ -74,6 +78,8 @@ def process_train_data(train_data,feature_type):
 
 
 def feature_2_stand(test_data,mean,std):
+    
+    '''Z-score for chunk data'''
 
     return np.array((test_data - mean) / std)
 
@@ -82,6 +88,8 @@ def feature_2_stand(test_data,mean,std):
 
 
 def process_test_data(test_data, mean, std, sep, features_type):
+    
+     '''Return writing tsv file with [job_id,feature_i_z_score,max_feature_2_index,max_feature_2_abs_mean_diff]'''
 
     columns = ['feature_2_stand_{}'.format(str(i)) for i in range(256)]
     columns = ['job_id'] + columns + ['max_feature_2_index','max_feature_2_abs_mean_diff']
